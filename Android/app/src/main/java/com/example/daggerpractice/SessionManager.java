@@ -37,7 +37,7 @@ public class SessionManager {
 
     }
     
-    private void logOut(){
+    public void logOut(){
         Log.d(TAG, "logOut: logging out ...");
         mCachedUser.setValue(AuthResource.<User>logout());
     }
