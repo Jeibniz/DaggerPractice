@@ -82,7 +82,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
     }
 
     private void subscribeObservers() {
-        mViewModel.observeUser().observe(this, new Observer<AuthResource<User>>() {
+        mViewModel.observeAuthState().observe(this, new Observer<AuthResource<User>>() {
             @Override
             public void onChanged(final AuthResource<User> userAuthResource) {
                 onUserResourceChanged(userAuthResource);

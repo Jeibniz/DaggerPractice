@@ -21,11 +21,12 @@ public class SessionManager {
     public SessionManager() {
     }
 
-    private void authenticateWithId(final LiveData<AuthResource<User>> source){
+    public void authenticateWithId(final LiveData<AuthResource<User>> source){
         // Stop if no cached user
         if(null == mCachedUser){
             return;
         }
+        // Set null to tell UI that a request is in progress.
         mCachedUser.setValue(AuthResource.loading((User) null));
         mCachedUser.addSource(source, new Observer<AuthResource<User>>() {
             @Override
@@ -41,7 +42,7 @@ public class SessionManager {
         mCachedUser.setValue(AuthResource.<User>logout());
     }
     
-    private LiveData<AuthResource<User>> getAuthUser(){
+    public LiveData<AuthResource<User>> getAuthUser(){
         return mCachedUser;
     }
 
