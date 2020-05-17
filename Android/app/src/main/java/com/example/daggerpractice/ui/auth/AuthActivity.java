@@ -1,5 +1,6 @@
 package com.example.daggerpractice.ui.auth;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.RequestManager;
 import com.example.daggerpractice.R;
 import com.example.daggerpractice.models.User;
+import com.example.daggerpractice.ui.main.MainActivity;
 import com.example.daggerpractice.viewmodels.ViewModelProviderFactory;
 import dagger.android.support.DaggerAppCompatActivity;
 import javax.inject.Inject;
@@ -85,12 +87,18 @@ public class AuthActivity extends DaggerAppCompatActivity {
         mViewModel.observeAuthState().observe(this, new Observer<AuthResource<User>>() {
             @Override
             public void onChanged(final AuthResource<User> userAuthResource) {
-                onUserResourceChanged(userAuthResource);
+                onAuthStateChanged(userAuthResource);
             }
         });
     }
 
-    private void onUserResourceChanged(final AuthResource<User> userAuthResource){
+    private void onLoginSuccess(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void onAuthStateChanged(final AuthResource<User> userAuthResource){
         if(null == userAuthResource){
             return;
         }
@@ -100,10 +108,11 @@ public class AuthActivity extends DaggerAppCompatActivity {
                 break;
             case AUTHENTICATED:
                 showProgressBar(false);
-                //TODO: replace with actual action
                 Log.d(TAG, "onUserResourceChanged: Login success: " + userAuthResource.data.getUsername());
+                onLoginSuccess();
                 break;
             case ERROR:
+                Log.e(TAG, "onAuthStateChanged: " + userAuthResource.message);
                 Toast.makeText(this, R.string.auth_login_toast_invalid, Toast.LENGTH_LONG).show();
                 showProgressBar(false);
                 break;
