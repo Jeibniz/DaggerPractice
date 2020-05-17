@@ -9,10 +9,12 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.daggerpractice.R;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Singleton;
 
 @Module
 public class AppModule {
 
+    @Singleton
     @Provides
     static RequestOptions provideRequestOptions() {
         return RequestOptions
@@ -20,6 +22,7 @@ public class AppModule {
                 .error(R.drawable.white_background);
     }
 
+    @Singleton
     @Provides
     static RequestManager provideGlideInstance(Application application, RequestOptions requestOptions) {
         return Glide.with(application)
