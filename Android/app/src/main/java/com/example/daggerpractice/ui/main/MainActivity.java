@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import com.example.daggerpractice.BaseActivity;
 import com.example.daggerpractice.R;
+import com.example.daggerpractice.ui.main.profile.ProfileFragment;
 
 public class MainActivity extends BaseActivity {
 
@@ -18,6 +19,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toast.makeText(this, "Hello from Main", Toast.LENGTH_LONG).show();
+
+        testFragment();
 
     }
 
@@ -30,7 +33,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.main_menu_logout:
                 onMenuLogoutClick();
@@ -42,5 +44,12 @@ public class MainActivity extends BaseActivity {
 
     private void onMenuLogoutClick() {
         sessionManager.logOut();
+    }
+
+    private void testFragment() {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_container, new ProfileFragment())
+        .commit();
+
     }
 }
