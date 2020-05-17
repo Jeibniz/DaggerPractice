@@ -1,14 +1,11 @@
 package com.example.daggerpractice.ui.auth;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.widget.ImageView;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProviders;
 import com.bumptech.glide.RequestManager;
 import com.example.daggerpractice.R;
-import com.example.daggerpractice.viewmodels.AuthViewModel;
 import com.example.daggerpractice.viewmodels.ViewModelProviderFactory;
 import dagger.android.support.DaggerAppCompatActivity;
 import javax.inject.Inject;
