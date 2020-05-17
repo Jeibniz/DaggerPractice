@@ -3,7 +3,7 @@
 
     <!-- Auth Activity -->
     <string name="auth_login_toast_empty">Please enter a username</string>
-    <string name="auth_login_toast_invalid">Invalid username</string>
+    <string name="auth_login_toast_invalid">Invalid username, has to be a number between 1 and 10.</string>
 
 
 </resources>
