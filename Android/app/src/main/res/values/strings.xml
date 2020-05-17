@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DaggerPractice</string>
+
+    <!-- Auth Activity -->
+    <string name="auth_login_toast_empty">Please enter a username</string>
+    <string name="auth_login_toast_invalid">Invalid username</string>
+
+
 </resources>
