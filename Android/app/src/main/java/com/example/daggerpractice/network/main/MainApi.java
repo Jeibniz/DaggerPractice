@@ -10,7 +10,7 @@ public interface MainApi {
 
     //Call format: BASE_URL/posts?userId=1
 
-    @GET
+    @GET("posts")
     Flowable<List<Post>> getPostsFromUser(
             @Query("userId") int userId
     );
