@@ -86,6 +86,4 @@ public class ProfileFragment extends DaggerFragment {
         mTextViewEmail.setText("");
         mTextViewWebsite.setText("");
     }
-
-
 }
