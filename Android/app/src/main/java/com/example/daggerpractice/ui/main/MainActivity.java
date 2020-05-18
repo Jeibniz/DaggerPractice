@@ -18,8 +18,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(this, "Hello from Main", Toast.LENGTH_LONG).show();
-
         testFragment();
 
     }
