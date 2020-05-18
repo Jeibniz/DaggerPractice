@@ -86,8 +86,17 @@ public class PostsFragment extends DaggerFragment {
 
     private void initRecycleView(View view){
         mRecyclerView = view.findViewById(R.id.fragment_posts_recycler_view);
-        mRecyclerView.setLayoutManager(layoutManager);
+        if(layoutManager != mRecyclerView.getLayoutManager()){ // Only add it the first time
+            mRecyclerView.setLayoutManager(layoutManager);
+        }
         mRecyclerView.addItemDecoration(itemDecoration);
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // Remove LayoutManager from the to be destroyed RecyclerView to be able to add it to other recyclerViews.
+        mRecyclerView.setLayoutManager(null);
     }
 }

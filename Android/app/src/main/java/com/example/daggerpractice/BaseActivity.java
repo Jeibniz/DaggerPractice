@@ -3,7 +3,9 @@ package com.example.daggerpractice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import com.example.daggerpractice.models.User;
@@ -42,7 +44,6 @@ public abstract class BaseActivity extends DaggerAppCompatActivity {
             case LOADING:
                 break;
             case AUTHENTICATED:
-                //TODO: replace with actual action
                 Log.d(TAG, "onUserResourceChanged: Login success: " + userAuthResource.data.getUsername());
                 break;
             case ERROR:
