@@ -15,16 +15,19 @@ public class MainModule {
 
     private static final String TAG = "MainModule";
 
+    @MainScope
     @Provides
     static PostsRecyclerAdapter providePostRecyclerAdapter() {
         return new PostsRecyclerAdapter();
     }
 
+    @MainScope
     @Provides
     static LinearLayoutManager provideLayoutManager(Application application) {
         return new LinearLayoutManager(application);
     }
 
+    @MainScope
     @Provides
     static VerticalSpacingItemDecoration provideItemDecoraton(Application application) {
         int spacing =
@@ -32,6 +35,7 @@ public class MainModule {
         return new VerticalSpacingItemDecoration(spacing);
     }
 
+    @MainScope
     @Provides
     static MainApi provideMainApi(Retrofit retrofit) {
         return retrofit.create(MainApi.class);

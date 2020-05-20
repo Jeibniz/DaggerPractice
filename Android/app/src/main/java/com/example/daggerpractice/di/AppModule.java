@@ -7,9 +7,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.daggerpractice.R;
+import com.example.daggerpractice.models.User;
 import com.example.daggerpractice.util.Constants;
 import dagger.Module;
 import dagger.Provides;
+import javax.inject.Scope;
 import javax.inject.Singleton;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -43,6 +45,7 @@ public class AppModule {
                 .setDefaultRequestOptions(requestOptions);
     }
 
+    @Singleton
     @Provides
     static Drawable provideAppDrawable(Application application) {
         return ContextCompat.getDrawable(application, R.drawable.logo);
