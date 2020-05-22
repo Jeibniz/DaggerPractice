@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.os.Bundle;
@@ -53,6 +56,12 @@ public class AuthActivity extends DaggerAppCompatActivity {
 
     private void initUiComponents() {
         mEditTextUserId = findViewById(R.id.user_id_input);
+        mEditTextUserId.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(final View view, final int i, final KeyEvent keyEvent) {
+                return onKeyUserText(i, keyEvent);
+            }
+        });
         mProgressBar = findViewById(R.id.progress_bar);
         findViewById(R.id.login_button).setOnClickListener(new OnClickListener() {
             @Override
@@ -63,6 +72,17 @@ public class AuthActivity extends DaggerAppCompatActivity {
         setLogo();
     }
 
+    private boolean onKeyUserText(final int keyCode, final KeyEvent keyEvent) {
+            // If the event is a key-down event on the "enter" button
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) &&
+                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                // Perform action on key press
+                attemptLogin();
+                return true;
+            }
+            return false;
+    }
+
     private void setLogo() {
         mRequestManager.
                 load(mLogo)
@@ -70,6 +90,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
     }
 
     private void attemptLogin(){
+        hideKeyboard();
         String input = mEditTextUserId.getText().toString();
         // Show a toast if no input or if input is invalid.
         if(TextUtils.isEmpty(input)){
@@ -128,5 +149,16 @@ public class AuthActivity extends DaggerAppCompatActivity {
         } else{
             mProgressBar.setVisibility(View.GONE);
         }
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (null == view) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
