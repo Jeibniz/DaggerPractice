@@ -15,12 +15,14 @@ import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 public class PostsViewModel extends ViewModel {
 
     private static final String TAG = "PostsViewModel";
     private static final int ERROR_POST_ID = -1;
+    private static final int CALL_TIMEOUT_SECONDS = 10;
 
     // Injected
     private final SessionManager mSessionManager;
@@ -55,11 +57,13 @@ public class PostsViewModel extends ViewModel {
                                 return observePostsOnError(throwable);
                             }
                         }).map(new Function<List<Post>, Resource<List<Post>>>() {
-                    @Override
-                    public Resource<List<Post>> apply(final List<Post> posts) throws Exception {
-                        return observePostsMap(posts);
-                    }
-                }).subscribeOn(Schedulers.io())
+                            @Override
+                            public Resource<List<Post>> apply(final List<Post> posts) throws Exception {
+                                return observePostsMap(posts);
+                            }
+                        })
+                        .timeout(CALL_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                        .subscribeOn(Schedulers.io())
         );
 
         mPosts.addSource(source, new Observer<Resource<List<Post>>>() {
